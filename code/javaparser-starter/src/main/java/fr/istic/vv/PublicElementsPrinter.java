@@ -27,7 +27,7 @@ public class PublicElementsPrinter extends VoidVisitorWithDefaults<Void> {
         if(!declaration.isPublic()) return;
         //System.out.println(declaration.getFullyQualifiedName().orElse("[Anonymous]"))
 
-        String cName = declaration.getClass().getCanonicalName();
+        String cName = declaration.getNameAsString();
         String pName = declaration.findCompilationUnit().get().getPackageDeclaration().get().getNameAsString();
 
         for(MethodDeclaration method : declaration.getMethods()) {
