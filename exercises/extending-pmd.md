@@ -23,3 +23,47 @@ Use your rule with different projects and describe you findings below. See the [
 
 ## Answer
 
+La règle à créer est la suivante : ```//IfStatement[count(ancestor::IfStatement)>=2]```
+
+On génère la règle .xml grâce à PMD designer, on obtient : 
+```xml
+<?xml version="1.0"?>
+
+<ruleset name="Custom Rules"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>
+        My custom rules
+    </description>
+
+
+    <rule name="if Rule"
+      language="java"
+      message="3 nested if statements"
+      class="net.sourceforge.pmd.lang.rule.XPathRule">
+   <description>
+      detect the use of three or more nested if statements in
+      Java programs
+   </description>
+   <priority>3</priority>
+   <properties>
+      <property name="version" value="2.0"/>
+      <property name="xpath">
+         <value>
+<![CDATA[
+//IfStatement[count(ancestor::IfStatement)>=2]
+]]>
+         </value>
+      </property>
+   </properties>
+</rule>
+</ruleset>
+```
+
+On l'utilise de la façon suivante :  
+```$ pmd -d your-project/src -R path/to/rule.xml -f text```
+
+Encore sur le projet Apache commons-cli, on analyse le code grâce à PMD et on obtient :  
+**commons-cli/src/main/java/org/apache/commons/cli/DefaultParser.java:363:    if Rule:    3 nested if statements**

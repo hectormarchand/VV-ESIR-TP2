@@ -58,6 +58,7 @@ public class Main {
                     break;
                 }
             }
+            // filed not found so we write in the file
             if (!found) {
                 try {
                     FileWriter myWriter = new FileWriter(System.getProperty("user.dir") + "/code/javaparser-starter/src/main/java/fr/istic/vv/output.txt", true);
